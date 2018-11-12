@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">WhipIt Assistant</string>
+    <string name="title_activity_main">WhipIt Assistant</string>
+    <string name="main_btn_ingredients">Ingredients</string>
+    <string name="main_btn_recipes">Recipes</string>
+    <string name="main_logo_description">WhipIt Logo</string>
+
+    <string name="title_activity_ingredient_list">Ingredients</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_delete">Delete</string>
+
+    <string name="confirm_delete_cancel">Cancel</string>
+    <string name="confirm_delete_delete">Delete</string>
+    <string name="confirm_delete_ingred_question">Delete ingredient \'%1$s\'?</string>
+    <string name="toast_msg_ingred_deleted">\'%1$s\' deleted</string>
+
+    <string name="title_activity_ingredient_editor">Ingredient Editor</string>
+    <string name="edit_ingred_name">Name</string>
+    <string name="edit_ingred_dollarSign">$</string>
+    <string name="edit_ingred_unit_cost">Unit Cost</string>
+    <string name="edit_ingred_per">/</string>
+    <string name="edit_btn_save">Save</string>
+
+    <string name="edit_ingred_error_name">Name must not be blank</string>
+    <string name="edit_ingred_error_cost">Cost must be a number</string>
+    <string name="toast_msg_ingred_saved">Saved ingredient \'%1$s\'</string>
+    <string name="toast_msg_ingred_created">Created ingredient \'%1$s\'</string>
+</resources>

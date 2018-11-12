@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/form_padding"
+        android:orientation="vertical"
+        tools:context=".IngredientEditActivity">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_ingred_name"
+            android:labelFor="@+id/edit_ingred_name"
+            android:textSize="@dimen/edit_labelSize"/>
+
+    <EditText
+            android:id="@+id/edit_ingred_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="@dimen/form_padding"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/edit_labelSize"
+            android:text="@string/edit_ingred_unit_cost"/>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:labelFor="@+id/edit_ingred_unitCost"
+            android:layout_marginBottom="@dimen/form_padding">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/edit_labelSize"
+                android:text="@string/edit_ingred_dollarSign"/>
+
+        <EditText
+                android:id="@+id/edit_ingred_unitCost"
+                android:layout_width="@dimen/editText_num_width"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/edit_ingred_unit"
+                android:textSize="@dimen/edit_labelSize"
+                android:text="@string/edit_ingred_per"/>
+
+        <Spinner
+                android:id="@+id/edit_ingred_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/edit_ingred_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_btn_save"/>
+
+
+</android.widget.LinearLayout>

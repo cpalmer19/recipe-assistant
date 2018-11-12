@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_logoHeight">200dp</dimen>
+    <dimen name="main_btnHeight">80dp</dimen>
+
+    <dimen name="list_title_size">20sp</dimen>
+    <dimen name="list_detail_size">14sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="form_padding">20dp</dimen>
+    <dimen name="edit_labelSize">20sp</dimen>
+    <dimen name="editText_name_width">200dp</dimen>
+    <dimen name="editText_num_width">80dp</dimen>
+    <dimen name="spinner_padding">10dp</dimen>
+    <dimen name="spinner_textSize">15sp</dimen>
+</resources>

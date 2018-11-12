@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="palm.recipe.assistant">
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name="palm.recipe.assistant.MainActivity"
+                android:label="@string/title_activity_main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="palm.recipe.assistant.IngredientListActivity"
+                android:label="@string/title_activity_ingredient_list"
+                android:parentActivityName="palm.recipe.assistant.MainActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name="palm.recipe.assistant.IngredientEditActivity"
+                android:label="@string/title_activity_ingredient_editor"
+                android:parentActivityName="palm.recipe.assistant.IngredientListActivity">
+        </activity>
+    </application>
+
+</manifest>
