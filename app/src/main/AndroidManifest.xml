@@ -10,21 +10,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name="palm.recipe.assistant.MainActivity"
+                android:name=".MainActivity"
                 android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-                android:name="palm.recipe.assistant.IngredientListActivity"
+                android:name=".IngredientListActivity"
                 android:label="@string/title_activity_ingredient_list"
-                android:parentActivityName="palm.recipe.assistant.MainActivity"
+                android:parentActivityName=".MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name="palm.recipe.assistant.IngredientEditActivity"
+                android:name=".IngredientEditActivity"
                 android:label="@string/title_activity_ingredient_editor"
                 android:parentActivityName="palm.recipe.assistant.IngredientListActivity">
         </activity>

@@ -7,21 +7,22 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import palm.recipe.assistant.model.IngredUnit
 import palm.recipe.assistant.model.Ingredient
-import palm.recipe.assistant.model.db.IngredientDBHelper
+import palm.recipe.assistant.model.db.DatabaseHelper
 
 /**
  * Activity for editing an Ingredient.
  */
 class IngredientEditActivity : AppCompatActivity() {
 
-    private val dbHelper = IngredientDBHelper(this)
+    private val dbHelper = DatabaseHelper(this)
     private var ingredID: Int = 0
 
     private lateinit var nameField: EditText
     private lateinit var unitCostField: EditText
     private lateinit var unitField: Spinner
+
+    private val units by lazy { dbHelper.unitAbbreviations() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,6 @@ class IngredientEditActivity : AppCompatActivity() {
         nameField = findViewById(R.id.edit_ingred_name)
         unitCostField = findViewById(R.id.edit_ingred_unitCost)
 
-        val units = IngredUnit.values()
         unitField = findViewById(R.id.edit_ingred_unit)
         unitField.adapter = ArrayAdapter(this, R.layout.spinner_view_unit, units)
 
@@ -84,7 +84,8 @@ class IngredientEditActivity : AppCompatActivity() {
     private fun fillFields(ingred: Ingredient) {
         nameField.setText(ingred.name)
         unitCostField.setText(ingred.unitCost.toString())
-        unitField.setSelection(ingred.unit.ordinal)
+        unitField.setSelection(units.indexOf(ingred.unit))
+//        unitField.setSelection(ingred.unit.ordinal)
     }
 
     /**
@@ -97,7 +98,7 @@ class IngredientEditActivity : AppCompatActivity() {
                 ingredID,
                 nameField.text.toString(),
                 unitCostField.text.toString().toDouble(),
-                unitField.selectedItem as IngredUnit
+                unitField.selectedItem as String
         )
     }
 

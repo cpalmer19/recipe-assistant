@@ -11,7 +11,7 @@ import android.view.MenuItem
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_ingredient_list.*
 import palm.recipe.assistant.model.Ingredient
-import palm.recipe.assistant.model.db.IngredientDBHelper
+import palm.recipe.assistant.model.db.DatabaseHelper
 
 /**
  * An Activity for showing the current list of Ingredients.
@@ -20,7 +20,7 @@ class IngredientListActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
 
-    private val dbHelper = IngredientDBHelper(this)
+    private val dbHelper = DatabaseHelper(this)
     private var selectedIngredient: Ingredient? = null
     private var actionMode: ActionMode? = null
 
