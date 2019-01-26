@@ -65,11 +65,17 @@ class IngredientEditActivity : AppCompatActivity() {
                 val ingred = createIngredient()
 
                 if (ingredID == 0) {
-                    dbHelper.addIngredient(ingred)
-                    toast(getString(R.string.toast_msg_ingred_created, ingred.name))
+                    if (dbHelper.addIngredient(ingred) != -1) {
+                        toast(getString(R.string.toast_msg_ingred_created, ingred.name))
+                    } else {
+                        toast(getString(R.string.toast_msg_ingred_failed, ingred.name))
+                    }
                 } else {
-                    dbHelper.updateIngredient(ingred)
-                    toast(getString(R.string.toast_msg_ingred_saved, ingred.name))
+                    if (dbHelper.updateIngredient(ingred)) {
+                        toast(getString(R.string.toast_msg_ingred_saved, ingred.name))
+                    } else {
+                        toast(getString(R.string.toast_msg_ingred_failed, ingred.name))
+                    }
                 }
                 finish()
             }

@@ -25,4 +25,5 @@
     <string name="edit_ingred_error_cost">Cost must be a number</string>
     <string name="toast_msg_ingred_saved">Saved ingredient \'%1$s\'</string>
     <string name="toast_msg_ingred_created">Created ingredient \'%1$s\'</string>
+    <string name="toast_msg_ingred_failed">Could not save ingredient \'%1$s\'</string>
 </resources>
