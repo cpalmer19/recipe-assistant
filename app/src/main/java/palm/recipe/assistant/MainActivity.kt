@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
         // Button for viewing the recipe list
         val recipeButton: Button = findViewById(R.id.btn_recipes)
         recipeButton.setOnClickListener {
-            // TODO create RecipeListActivity
-            toast("Not yet implemented")
+            launchActivity(RecipeListActivity::class)
         }
     }
 }

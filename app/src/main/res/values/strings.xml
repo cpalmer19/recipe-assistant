@@ -6,13 +6,16 @@
     <string name="main_logo_description">WhipIt Logo</string>
 
     <string name="title_activity_ingredient_list">Ingredients</string>
+    <string name="title_activity_recipe_list">Recipes</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_delete">Delete</string>
 
     <string name="confirm_delete_cancel">Cancel</string>
     <string name="confirm_delete_delete">Delete</string>
     <string name="confirm_delete_ingred_question">Delete ingredient \'%1$s\'?</string>
-    <string name="toast_msg_ingred_deleted">\'%1$s\' deleted</string>
+    <string name="confirm_delete_recipe_question">Delete recipe \'%1$s\'?</string>
+    <string name="toast_msg_ingred_deleted">Ingredient \'%1$s\' deleted</string>
+    <string name="toast_msg_recipe_deleted">Recipe \'%1$s\' deleted</string>
 
     <string name="title_activity_ingredient_editor">Ingredient Editor</string>
     <string name="edit_ingred_name">Name</string>
