@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import kotlinx.android.synthetic.main.activity_ingredient_edit.*
 import palm.recipe.assistant.model.Ingredient
 import palm.recipe.assistant.model.db.DatabaseHelper
 
@@ -18,9 +16,9 @@ class IngredientEditActivity : AppCompatActivity() {
     private val dbHelper = DatabaseHelper(this)
     private var ingredID: Int = 0
 
-    private lateinit var nameField: EditText
-    private lateinit var unitCostField: EditText
-    private lateinit var unitField: Spinner
+    private val nameField by lazy { edit_ingred_name }
+    private val unitCostField by lazy { edit_ingred_unitCost }
+    private val unitField by lazy { edit_ingred_unit }
 
     private val units by lazy { dbHelper.unitAbbreviations() }
 
@@ -31,10 +29,6 @@ class IngredientEditActivity : AppCompatActivity() {
         // for backwards navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        nameField = findViewById(R.id.edit_ingred_name)
-        unitCostField = findViewById(R.id.edit_ingred_unitCost)
-
-        unitField = findViewById(R.id.edit_ingred_unit)
         unitField.adapter = ArrayAdapter(this, R.layout.spinner_view_unit, units)
 
         /*
@@ -59,7 +53,7 @@ class IngredientEditActivity : AppCompatActivity() {
         }
 
         // Set up the save button
-        val saveButton = findViewById<Button>(R.id.edit_ingred_save)
+        val saveButton = edit_ingred_save
         saveButton.setOnClickListener {
             if (validate()) {
                 val ingred = createIngredient()
@@ -98,14 +92,12 @@ class IngredientEditActivity : AppCompatActivity() {
      *
      * @return a new Ingredient
      */
-    private fun createIngredient(): Ingredient {
-        return Ingredient(
-                ingredID,
-                nameField.text.toString(),
-                unitCostField.text.toString().toDouble(),
-                unitField.selectedItem as String
-        )
-    }
+    private fun createIngredient() = Ingredient(
+            ingredID,
+            nameField.text.toString(),
+            unitCostField.text.toString().toDouble(),
+            unitField.selectedItem as String
+    )
 
     /**
      * Check that the form fields contain valid data for an Ingredient.

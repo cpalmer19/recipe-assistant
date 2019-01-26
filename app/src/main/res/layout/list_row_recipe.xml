@@ -11,13 +11,27 @@
             android:id="@+id/recipe_row_name"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:padding="20dp"
+            android:paddingTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingBottom="5dp"
             android:textSize="@dimen/list_title_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/recipe_row_details"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/recipe_row_description"
             app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:id="@+id/recipe_row_description"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="@dimen/list_detail_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipe_row_name"/>
 
     <TextView
             android:id="@+id/recipe_row_details"

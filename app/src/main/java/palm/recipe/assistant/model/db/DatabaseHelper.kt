@@ -199,6 +199,15 @@ class DatabaseHelper(context: Context)
         )
     }
 
+    fun ingredientExists(name: String): Boolean {
+        return query(
+                TABLE_INGREDIENTS,
+                where = "$COLUMN_NAME = ?",
+                whereArgs = arrayOf(name),
+                mapper = { true }
+        ).isNotEmpty()
+    }
+
     //----------------------------------------------------------------------------------
     // Recipe Methods
 
@@ -231,10 +240,10 @@ class DatabaseHelper(context: Context)
 
     fun deleteRecipe(recipe: Recipe) = deleteEntry(TABLE_RECIPES, recipe.id)
 
-    fun updateRecipe(recipe: Recipe) {
+    fun updateRecipe(recipe: Recipe): Boolean {
         // TODO only update the parts that have changed
 
-        updateEntry(TABLE_RECIPES, recipe.id, recipe.toContentValues())
+        return updateEntry(TABLE_RECIPES, recipe.id, recipe.toContentValues())
     }
 
     fun getRecipe(id: Int): Recipe? {
@@ -248,6 +257,15 @@ class DatabaseHelper(context: Context)
 
     fun getAllRecipes(): List<Recipe> {
         return query(TABLE_RECIPES, orderBy = COLUMN_NAME, mapper = { getRecipe() })
+    }
+
+    fun recipeExists(name: String): Boolean {
+        return query(
+                TABLE_RECIPES,
+                where = "$COLUMN_NAME = ?",
+                whereArgs = arrayOf(name),
+                mapper = { true }
+        ).isNotEmpty()
     }
 
     //----------------------------------------------------------------------------------

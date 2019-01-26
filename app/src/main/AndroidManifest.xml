@@ -29,10 +29,16 @@
                 android:label="@string/title_activity_ingredient_editor"
                 android:parentActivityName=".IngredientListActivity">
         </activity>
-        <activity android:name=".RecipeListActivity"
-                  android:label="@string/title_activity_recipe_list"
-                  android:parentActivityName=".MainActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".RecipeListActivity"
+                android:label="@string/title_activity_recipe_list"
+                android:parentActivityName=".MainActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".RecipeEditActivity"
+                android:label="@string/title_activity_recipe_editor"
+                android:parentActivityName=".RecipeListActivity">
         </activity>
     </application>
 

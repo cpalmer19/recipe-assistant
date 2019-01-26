@@ -1,5 +1,6 @@
 package palm.recipe.assistant
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -29,10 +30,9 @@ class RecipeListActivity : AppCompatActivity() {
 
         // Floating Action Button for creating a new Recipe
         fab.setOnClickListener { view ->
-            toast("Not yet implemented")
-//            launchActivity(RecipeEditActivity::class) {
-//                action = Intent.ACTION_INSERT
-//            }
+            launchActivity(RecipeEditActivity::class) {
+                action = Intent.ACTION_INSERT
+            }
         }
 
         /*
@@ -88,11 +88,10 @@ class RecipeListActivity : AppCompatActivity() {
      * Edit the selected Recipe
      */
     private fun editCurrentItem() {
-        toast("Not yet implemented")
-//        launchActivity(RecipeEditActivity::class) {
-//            action = Intent.ACTION_EDIT
-//            putExtra(EXTRA_ID, selectedRecipe?.id ?: 0)
-//        }
+        launchActivity(RecipeEditActivity::class) {
+            action = Intent.ACTION_EDIT
+            putExtra(EXTRA_ID, selectedRecipe?.id ?: 0)
+        }
     }
 
     /**
