@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_ingredient_list.*
+import kotlinx.android.synthetic.main.content_ingredient_list.*
 import palm.recipe.assistant.model.Ingredient
 import palm.recipe.assistant.model.db.DatabaseHelper
 
@@ -18,7 +15,7 @@ import palm.recipe.assistant.model.db.DatabaseHelper
  */
 class IngredientListActivity : AppCompatActivity() {
 
-    private lateinit var listView: ListView
+    private val listView by lazy { main_ingred_list }
 
     private val dbHelper = DatabaseHelper(this)
     private var selectedIngredient: Ingredient? = null
@@ -29,7 +26,7 @@ class IngredientListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ingredient_list)
 
         // Use a toolbar as the ActionBar
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
 
         // For back navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -46,7 +43,6 @@ class IngredientListActivity : AppCompatActivity() {
         One ingredient at a time can be selected, with an ActionMode showing
         the Edit and Delete options
         */
-        listView = findViewById(R.id.main_ingred_list)
         listView.setOnItemClickListener { parent, view, position, id ->
             if (actionMode == null) {
                 actionMode = startSupportActionMode(actionModeCallback)
@@ -75,40 +71,21 @@ class IngredientListActivity : AppCompatActivity() {
     /**
      * Callback for selecting an item from the Ingredient List.
      */
-    private val actionModeCallback = object : ActionMode.Callback {
-        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-            val inflater : MenuInflater = mode.menuInflater
-            inflater.inflate(R.menu.menu_ingred_list, menu)
-            return true
-        }
+    private val actionModeCallback = createActionModeCallback(
+            R.menu.menu_ingred_list,
+            itemMappings = mapOf(
+                    R.id.menu_ingred_list_edit to { editCurrentItem() },
+                    R.id.menu_ingred_list_delete to { deleteCurrentItem() }
+            ),
+            onDestroy = {
+                actionMode = null
+                selectedIngredient = null
+                listView.clearChoices()
 
-        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-            return false
-        }
-
-        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            return when (item.itemId) {
-                R.id.menu_ingred_list_edit -> {
-                    editCurrentItem()
-                    true
-                }
-                R.id.menu_ingred_list_delete -> {
-                    deleteCurrentItem()
-                    true
-                }
-                else -> false
+                // hack to get the view to update
+                listView.adapter = listView.adapter
             }
-        }
-
-        override fun onDestroyActionMode(mode: ActionMode) {
-            actionMode = null
-            selectedIngredient = null
-            listView.clearChoices()
-
-            // hack to get the view to update
-            listView.adapter = listView.adapter
-        }
-    }
+    )
 
     /**
      * Edit the selected ingredient

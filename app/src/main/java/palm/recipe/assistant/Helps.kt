@@ -2,8 +2,9 @@ package palm.recipe.assistant
 
 import android.app.Activity
 import android.content.Intent
-import android.view.Gravity
+import android.view.*
 import android.widget.Toast
+import android.support.v7.view.ActionMode
 import kotlin.reflect.KClass
 
 /*
@@ -39,5 +40,29 @@ fun Activity.toast(msg: String, length: Int = Toast.LENGTH_SHORT, gravity: Int =
     val toast = Toast.makeText(this, msg, length)
     toast.setGravity(gravity, 0, 0)
     toast.show()
+}
+
+fun createActionModeCallback(menuId: Int, itemMappings: Map<Int, () -> Unit>, onDestroy: () -> Unit): ActionMode.Callback {
+    return object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+            val inflater : MenuInflater = mode.menuInflater
+            inflater.inflate(menuId, menu)
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+            return false
+        }
+
+        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+            val action = itemMappings[item.itemId]
+            action?.invoke()
+            return action != null
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode) {
+            onDestroy()
+        }
+    }
 }
 

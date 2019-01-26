@@ -91,7 +91,6 @@ class IngredientEditActivity : AppCompatActivity() {
         nameField.setText(ingred.name)
         unitCostField.setText(ingred.unitCost.toString())
         unitField.setSelection(units.indexOf(ingred.unit))
-//        unitField.setSelection(ingred.unit.ordinal)
     }
 
     /**
