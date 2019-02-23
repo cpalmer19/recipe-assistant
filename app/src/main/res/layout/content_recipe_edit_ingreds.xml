@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".RecipeEditActivity"
+        tools:showIn="@layout/activity_recipe_edit">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/edit_recipe_add_ingred"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="@string/edit_recipe_btn_add_ingred"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/edit_recipe_edit_ingred"/>
+        <Button
+                android:id="@+id/edit_recipe_edit_ingred"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="@string/menu_edit"
+                app:layout_constraintStart_toEndOf="@id/edit_recipe_add_ingred"
+                app:layout_constraintEnd_toStartOf="@+id/edit_recipe_delete_ingred"/>
+        <Button
+                android:id="@+id/edit_recipe_delete_ingred"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="@string/menu_delete"
+                app:layout_constraintStart_toEndOf="@id/edit_recipe_edit_ingred"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <ListView
+            android:id="@+id/edit_recipe_ingredient_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:listSelector="@color/color_listSelector">
+    </ListView>
+
+    <!--<include layout="@layout/fab_add" />-->
+
+</LinearLayout>

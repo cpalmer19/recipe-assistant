@@ -3,9 +3,13 @@
     <dimen name="main_logoHeight">200dp</dimen>
     <dimen name="main_btnHeight">80dp</dimen>
 
-    <dimen name="list_title_size">20sp</dimen>
-    <dimen name="list_detail_size">14sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="list_size_title_large">20sp</dimen>
+    <dimen name="list_size_title_small">18sp</dimen>
+    <dimen name="list_size_details">14sp</dimen>
+    <dimen name="list_item_large_margin">15dp</dimen>
+    <dimen name="list_item_small_margin">15dp</dimen>
 
     <dimen name="form_padding">20dp</dimen>
     <dimen name="edit_labelSize">20sp</dimen>

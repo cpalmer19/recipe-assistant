@@ -5,14 +5,13 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/list_item_large_margin">
+        android:padding="@dimen/list_item_small_margin">
 
     <TextView
-            android:id="@+id/ingred_row_name"
+            android:id="@+id/measure_row_name"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:textSize="@dimen/list_size_title_large"
-            android:textStyle="bold"
+            android:textSize="@dimen/list_size_title_small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/measure_row_details"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +23,7 @@
             android:layout_width="wrap_content"
             android:textSize="@dimen/list_size_details"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/ingred_row_name"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/measure_row_name"/>
 
 
 </android.support.constraint.ConstraintLayout>

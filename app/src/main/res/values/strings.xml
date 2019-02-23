@@ -9,11 +9,13 @@
     <string name="title_activity_recipe_list">Recipes</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_delete">Delete</string>
+    <string name="menu_save">Save</string>
 
     <string name="confirm_delete_cancel">Cancel</string>
     <string name="confirm_delete_delete">Delete</string>
     <string name="confirm_delete_ingred_question">Delete ingredient \'%1$s\'?</string>
     <string name="confirm_delete_recipe_question">Delete recipe \'%1$s\'?</string>
+    <string name="confirm_delete_measure_question">Delete ingredient \'%1$s\' from recipe?</string>
     <string name="toast_msg_ingred_deleted">Ingredient \'%1$s\' deleted</string>
     <string name="toast_msg_recipe_deleted">Recipe \'%1$s\' deleted</string>
 
@@ -33,10 +35,12 @@
     <string name="title_activity_recipe_editor">Recipe Editor</string>
     <string name="edit_recipe_name">Name</string>
     <string name="edit_recipe_yield">Yield</string>
-    <string name="edit_recipe_description">Description</string>
+    <string name="edit_recipe_description">Description (optional)</string>
+    <string name="edit_recipe_ingredients">Ingredients</string>
+    <string name="edit_recipe_btn_add_ingred">Add</string>
 
     <string name="edit_recipe_error_name">Name must not be blank</string>
-    <string name="edit_recipe_error_yield">Yield must not be a number</string>
+    <string name="edit_recipe_error_yield">Yield must be a number</string>
     <string name="toast_msg_recipe_saved">Saved recipe \'%1$s\'</string>
     <string name="toast_msg_recipe_created">Created recipe \'%1$s\'</string>
     <string name="toast_msg_recipe_failed">Could not save recipe \'%1$s\'</string>

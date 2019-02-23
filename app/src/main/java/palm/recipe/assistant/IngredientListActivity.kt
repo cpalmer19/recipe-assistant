@@ -25,12 +25,13 @@ class IngredientListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ingredient_list)
 
         // Use a toolbar as the ActionBar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         // For back navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Floating Action Button for creating a new Ingredient
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { view ->
             launchActivity(IngredientEditActivity::class) {
                 action = Intent.ACTION_INSERT

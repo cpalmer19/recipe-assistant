@@ -22,12 +22,13 @@ class RecipeListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recipe_list)
 
         // Use a toolbar as the ActionBar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         // For back navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Floating Action Button for creating a new Recipe
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { view ->
             launchActivity(RecipeEditActivity::class) {
                 action = Intent.ACTION_INSERT

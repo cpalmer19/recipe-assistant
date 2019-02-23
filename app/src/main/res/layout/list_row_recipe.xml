@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/list_item_large_margin">
 
     <TextView
             android:id="@+id/recipe_row_name"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:paddingTop="20dp"
-            android:paddingStart="20dp"
-            android:paddingBottom="5dp"
-            android:textSize="@dimen/list_title_size"
+            android:textSize="@dimen/list_size_title_large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/recipe_row_details"
@@ -25,10 +22,7 @@
             android:id="@+id/recipe_row_description"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:paddingBottom="20dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textSize="@dimen/list_detail_size"
+            android:textSize="@dimen/list_size_details"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recipe_row_name"/>
@@ -37,8 +31,7 @@
             android:id="@+id/recipe_row_details"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:padding="20dp"
-            android:textSize="@dimen/list_detail_size"
+            android:textSize="@dimen/list_size_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@+id/recipe_row_name"/>
 

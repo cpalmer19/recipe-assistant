@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import palm.recipe.assistant.model.Ingredient
+import palm.recipe.assistant.model.Measure
 import palm.recipe.assistant.model.Recipe
 
 /**
@@ -54,6 +55,28 @@ class RecipeAdapter(context: Context, recipes: List<Recipe>) : ArrayAdapter<Reci
 
         val detailView = view.findViewById<TextView>(R.id.recipe_row_details)
         detailView.text = "Yields ${recipe.yield}"
+
+        return view
+    }
+}
+
+/**
+ * Adapter for showing a list of Measures in a ListView.
+ */
+class MeasureAdapter(context: Context, measures: List<Measure>) : ArrayAdapter<Measure>(context, 0, measures) {
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val measure = getItem(position)
+
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_row_measure, parent, false)
+
+        val titleView = view.findViewById<TextView>(R.id.measure_row_name)
+        titleView.text = measure.ingredient
+
+        // details are '$measure $units'
+        val detailView = view.findViewById<TextView>(R.id.measure_row_details)
+        val details = "${measure.measure} ${measure.unit}"
+        detailView.text = details
 
         return view
     }

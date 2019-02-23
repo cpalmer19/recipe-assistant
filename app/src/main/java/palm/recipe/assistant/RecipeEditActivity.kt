@@ -2,9 +2,14 @@ package palm.recipe.assistant
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_recipe_edit.*
-import palm.recipe.assistant.model.Recipe
+import android.view.Menu
+import android.view.MenuItem
 import palm.recipe.assistant.model.db.DatabaseHelper
 
 /**
@@ -15,11 +20,9 @@ class RecipeEditActivity : AppCompatActivity() {
     private val dbHelper = DatabaseHelper(this)
     private var recipeID: Int = 0
 
-    private val nameField by lazy { edit_recipe_name }
-    private val yieldField by lazy { edit_recipe_yield }
-    private val descriptionField by lazy { edit_recipe_description }
-
-//    private val units by lazy { dbHelper.unitAbbreviations() }
+    private lateinit var tabs: TabAdapter
+    private val viewPager by lazy { findViewById<ViewPager>(R.id.edit_recipe_pager) }
+    private val tabLayout by lazy { findViewById<TabLayout>(R.id.edit_recipe_tablayout) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +40,9 @@ class RecipeEditActivity : AppCompatActivity() {
         when (intent.action) {
             Intent.ACTION_EDIT -> {
                 recipeID = intent.getIntExtra(EXTRA_ID, 0)
-
-                // get the values from the database, and fill the fields
                 val recipe = dbHelper.getRecipe(recipeID)
                 if (recipe != null) {
-                    fillFields(recipe)
+                    title = recipe.name
                 }
             }
             Intent.ACTION_INSERT -> {
@@ -49,75 +50,78 @@ class RecipeEditActivity : AppCompatActivity() {
             }
         }
 
-        // Set up the save button
-        val saveButton = edit_recipe_save
-        saveButton.setOnClickListener {
-            if (validate()) {
-                val recipe = createRecipe()
+        tabs = TabAdapter(recipeID, supportFragmentManager)
+        viewPager.adapter = tabs
+        tabLayout.setupWithViewPager(viewPager)
+    }
 
-                if (recipeID == 0) {
-                    if (dbHelper.addRecipe(recipe) != -1) {
-                        toast(getString(R.string.toast_msg_recipe_created, recipe.name))
-                    } else {
-                        toast(getString(R.string.toast_msg_recipe_failed, recipe.name))
-                    }
-                } else {
-                    if (dbHelper.updateRecipe(recipe)) {
-                        toast(getString(R.string.toast_msg_recipe_saved, recipe.name))
-                    } else {
-                        toast(getString(R.string.toast_msg_recipe_failed, recipe.name))
-                    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_edit, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_editor_save -> {
+                if (tabs.details.validate() && saveRecipe()) {
+                    finish()
                 }
-                finish()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    /**
-     * Fill the form fields based on the values in the given Recipe.
-     *
-     * @param recipe the Recipe to get the values from
-     */
-    private fun fillFields(recipe: Recipe) {
-        nameField.setText(recipe.name)
-        yieldField.setText(recipe.yield.toString())
-        descriptionField.setText(recipe.description)
+    private class TabAdapter(recipeId: Int, fm: FragmentManager): FragmentPagerAdapter(fm) {
+        val details = RecipeEditDetailFragment()
+        val ingreds = RecipeEditIngredsFragment()
+
+        init {
+            val bundle = createBundle("id" to recipeId)
+            details.arguments = bundle
+            ingreds.arguments = bundle
+        }
+
+        override fun getItem(position: Int): Fragment? = when (position) {
+            0 -> details
+            1 -> ingreds
+            else -> null
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? = when(position) {
+            0 -> "Details"
+            1 -> "Ingredients"
+            else -> null
+        }
+
+        override fun getCount(): Int = 2
     }
 
-    /**
-     * Create an Recipe object based on the values in the form fields.
-     *
-     * @return a new Recipe
-     */
-    private fun createRecipe() = Recipe(
-            recipeID,
-            nameField.text.toString(),
-            yieldField.text.toString().toDouble(),
-            descriptionField.text.toString()
-    )
+    private fun saveRecipe(): Boolean {
+        val recipe = tabs.details.createRecipe(recipeID)
+//
+        val createNew: Boolean = recipeID == 0
 
-    /**
-     * Check that the form fields contain valid data for an Recipe.
-     * If not, the user is notified with an error message and help.
-     *
-     * @return true if valid, false otherwise.
-     */
-    private fun validate(): Boolean {
-        var hasError = false
-
-        if (nameField.text.isBlank()) {
-            nameField.error = getString(R.string.edit_recipe_error_name)
-            hasError = true
+        val success: Boolean = if (createNew) {
+            recipeID = dbHelper.addRecipe(recipe)
+            recipeID != -1
+        } else {
+            dbHelper.updateRecipe(recipe)
         }
 
-        // TODO when creating a new recipe, check that the name is unique
+        if (success) {
+            dbHelper.updateRecipeMeasures(recipeID, tabs.ingreds.measures)
 
-        val yieldVal = yieldField.text.toString().toDoubleOrNull()
-        if (yieldVal == null) {
-            yieldField.error = getString(R.string.edit_recipe_error_yield)
-            hasError = true
+            if (createNew) {
+                toast(getString(R.string.toast_msg_recipe_created, recipe.name))
+            } else {
+                toast(getString(R.string.toast_msg_recipe_saved, recipe.name))
+            }
+
+        } else {
+            toast(getString(R.string.toast_msg_recipe_failed, recipe.name))
         }
 
-        return !hasError
+        return success
     }
 }
