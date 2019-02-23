@@ -1,10 +1,18 @@
 package palm.recipe.assistant
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.view.*
-import android.widget.Toast
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.view.ActionMode
+import android.view.Gravity
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Button
+import android.widget.Toast
 import kotlin.reflect.KClass
 
 /*
@@ -66,3 +74,27 @@ fun createActionModeCallback(menuId: Int, itemMappings: Map<Int, () -> Unit>, on
     }
 }
 
+fun createBundle(vararg items: Pair<String, Any>): Bundle {
+    return Bundle().apply {
+        for ((key, value) in items) {
+            when (value) {
+                is Int -> putInt(key, value)
+                is String -> putString(key, value)
+                // TODO add as needed
+            }
+        }
+    }
+}
+
+fun Button.onClick(listener: () -> Unit) = setOnClickListener { listener() }
+
+fun Context.confirmDelete(msg: String, action: () -> Unit) {
+    AlertDialog.Builder(this).apply {
+        setMessage(msg)
+        setPositiveButton(R.string.confirm_delete_delete) { _, _ -> action() }
+        setNegativeButton(R.string.confirm_delete_cancel) { _, _ ->  }
+        show()
+    }
+}
+
+fun Fragment.confirmDelete(msg: String, action: () -> Unit) = context.confirmDelete(msg, action)

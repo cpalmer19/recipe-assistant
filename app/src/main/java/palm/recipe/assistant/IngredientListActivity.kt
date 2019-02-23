@@ -2,10 +2,9 @@ package palm.recipe.assistant
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
-import kotlinx.android.synthetic.main.activity_ingredient_list.*
 import kotlinx.android.synthetic.main.content_ingredient_list.*
 import palm.recipe.assistant.model.Ingredient
 import palm.recipe.assistant.model.db.DatabaseHelper
@@ -102,18 +101,12 @@ class IngredientListActivity : AppCompatActivity() {
      */
     private fun deleteCurrentItem() {
         // Get the user to confirm before deleting
-        AlertDialog.Builder(this).apply {
-            setMessage(getString(R.string.confirm_delete_ingred_question, selectedIngredient?.name))
-
-            setPositiveButton(R.string.confirm_delete_delete) { dialog, which ->
-                toast(getString(R.string.toast_msg_ingred_deleted, selectedIngredient?.name))
-                dbHelper.deleteIngredient(selectedIngredient!!)
-                actionMode?.finish()
-                refreshList()
-            }
-            setNegativeButton(R.string.confirm_delete_cancel) { dialog, which ->  }
-
-            show()
+        val msg = getString(R.string.confirm_delete_ingred_question, selectedIngredient?.name)
+        confirmDelete(msg) {
+            toast(getString(R.string.toast_msg_ingred_deleted, selectedIngredient?.name))
+            dbHelper.deleteIngredient(selectedIngredient!!)
+            actionMode?.finish()
+            refreshList()
         }
     }
 
