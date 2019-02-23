@@ -20,7 +20,7 @@ class DatabaseHelper(context: Context)
 
     companion object {
         const val DATABASE_NAME = "recipe_manager.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
 
         const val TABLE_INGREDIENTS = "ingredients"
         const val TABLE_RECIPES = "recipes"
@@ -68,11 +68,11 @@ class DatabaseHelper(context: Context)
         db.execSQL(recipeSql)
 
         val measureSql = "CREATE TABLE $TABLE_MEASURES(" +
-                "$COLUMN_ID INTEGER PRIMARY KEY," +
                 "$COLUMN_RECIPE_ID INTEGER REFERENCES $TABLE_RECIPES($COLUMN_ID) ON DELETE CASCADE," +
                 "$COLUMN_INGRED_ID INTEGER REFERENCES $TABLE_INGREDIENTS($COLUMN_ID) ON DELETE CASCADE," +
                 "$COLUMN_MEASURE DOUBLE," +
-                "$COLUMN_UNIT TEXT REFERENCES $TABLE_UNITS($COLUMN_ABBR));"
+                "$COLUMN_UNIT TEXT REFERENCES $TABLE_UNITS($COLUMN_ABBR)," +
+                "PRIMARY KEY($COLUMN_RECIPE_ID, $COLUMN_INGRED_ID));"
         db.execSQL(measureSql)
     }
 
@@ -277,7 +277,6 @@ class DatabaseHelper(context: Context)
      * @return a Measure Object
      */
     private fun Cursor.getMeasure() = Measure(
-                getInt(COLUMN_ID),
                 getString(COLUMN_NAME),
                 getDouble(COLUMN_MEASURE),
                 getString(COLUMN_UNIT)
@@ -303,15 +302,15 @@ class DatabaseHelper(context: Context)
         }
     }
 
-    fun updateRecipeMeasures(recipe: Recipe, measures: List<Measure>) {
-        deleteEntries(TABLE_MEASURES, "$COLUMN_RECIPE_ID = ?", arrayOf(recipe.id.toString()))
-        addAllEntries(TABLE_MEASURES, measures.map { it.toContentValues(recipe.id) })
+    fun updateRecipeMeasures(recipeID: Int, measures: List<Measure>) {
+        deleteEntries(TABLE_MEASURES, "$COLUMN_RECIPE_ID = ?", arrayOf(recipeID.toString()))
+        addAllEntries(TABLE_MEASURES, measures.map { it.toContentValues(recipeID) })
     }
 
     fun getMeasuresForRecipe(recipeID: Int): List<Measure> {
         return rawQuery(
-                "SELECT $TABLE_MEASURES.$COLUMN_ID, $TABLE_MEASURES.$COLUMN_MEASURE " +
-                        "$TABLE_MEASURES.$COLUMN_UNIT, $TABLE_INGREDIENTS.$COLUMN_NAME " +
+                "SELECT $TABLE_INGREDIENTS.$COLUMN_NAME, $TABLE_MEASURES.$COLUMN_MEASURE, " +
+                        "$TABLE_MEASURES.$COLUMN_UNIT " +
                         "FROM $TABLE_MEASURES INNER JOIN $TABLE_INGREDIENTS " +
                         "ON $TABLE_MEASURES.$COLUMN_INGRED_ID = $TABLE_INGREDIENTS.$COLUMN_ID " +
                         "WHERE $TABLE_MEASURES.$COLUMN_RECIPE_ID = ?",
@@ -339,7 +338,9 @@ class DatabaseHelper(context: Context)
 
     private fun insertEntry(db: SQLiteDatabase, table: String, values: ContentValues): Int {
         return try {
-            db.insertOrThrow(table, null, values).toInt()
+            val newId = db.insertOrThrow(table, null, values).toInt()
+            Log.d(TAG, "New $table inserted with ID $newId")
+            newId
         } catch (e: SQLException) {
             Log.w(TAG, "Error inserting $table: ${e.message}")
             -1

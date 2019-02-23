@@ -23,7 +23,7 @@ class IngredAdapter(context: Context, ingreds: List<Ingredient>) : ArrayAdapter<
         titleView.text = ingred.name
 
         // details are '$UNIT_COST / UNIT'
-        val detailView = view.findViewById<TextView>(R.id.ingred_row_details)
+        val detailView = view.findViewById<TextView>(R.id.measure_row_details)
         val details = "\$${ingred.unitCost} / ${ingred.unit}"
         detailView.text = details
 

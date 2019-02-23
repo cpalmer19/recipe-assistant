@@ -8,7 +8,6 @@ class Recipe (
 )
 
 class Measure(
-        val id: Int,
         val ingredient: String,
         val measure: Double,
         val unit: String
