@@ -27,7 +27,8 @@
         <activity
                 android:name=".IngredientEditActivity"
                 android:label="@string/title_activity_ingredient_editor"
-                android:parentActivityName=".IngredientListActivity">
+                android:parentActivityName=".IngredientListActivity"
+                android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".RecipeListActivity"
@@ -38,7 +39,8 @@
         <activity
                 android:name=".RecipeEditActivity"
                 android:label="@string/title_activity_recipe_editor"
-                android:parentActivityName=".RecipeListActivity">
+                android:parentActivityName=".RecipeListActivity"
+                android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 
