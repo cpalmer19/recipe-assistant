@@ -77,13 +77,27 @@ class DatabaseHelper(context: Context)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // TODO transfer old data to new table so no data is lost
+        val tempTableIngred = "_${TABLE_INGREDIENTS}_old"
+        val tempTableRecipe = "_${TABLE_RECIPES}_old"
 
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_UNITS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_INGREDIENTS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_RECIPES")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MEASURES")
+        db.run {
+            execSQL("ALTER TABLE $TABLE_INGREDIENTS RENAME TO $tempTableIngred")
+            execSQL("ALTER TABLE $TABLE_RECIPES RENAME TO $tempTableRecipe")
+
+            execSQL("DROP TABLE IF EXISTS $TABLE_UNITS")
+            execSQL("DROP TABLE IF EXISTS $TABLE_INGREDIENTS")
+            execSQL("DROP TABLE IF EXISTS $TABLE_RECIPES")
+            execSQL("DROP TABLE IF EXISTS $TABLE_MEASURES")
+        }
+
         onCreate(db)
+
+        db.run {
+            execSQL("INSERT INTO $TABLE_INGREDIENTS SELECT * FROM $tempTableIngred")
+            execSQL("INSERT INTO $TABLE_RECIPES SELECT * FROM $tempTableRecipe")
+            execSQL("DROP TABLE $tempTableIngred")
+            execSQL("DROP TABLE $tempTableRecipe")
+        }
     }
 
     //-----------------------------------------------------------------------
