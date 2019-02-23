@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".MainActivity"
+                android:name=".base.MainActivity"
                 android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,27 +19,27 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".IngredientListActivity"
+                android:name=".ingred.IngredientListActivity"
                 android:label="@string/title_activity_ingredient_list"
-                android:parentActivityName=".MainActivity"
+                android:parentActivityName=".base.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".IngredientEditActivity"
+                android:name=".ingred.IngredientEditActivity"
                 android:label="@string/title_activity_ingredient_editor"
-                android:parentActivityName=".IngredientListActivity"
+                android:parentActivityName=".ingred.IngredientListActivity"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
-                android:name=".RecipeListActivity"
+                android:name=".recipe.RecipeListActivity"
                 android:label="@string/title_activity_recipe_list"
-                android:parentActivityName=".MainActivity"
+                android:parentActivityName=".base.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".RecipeEditActivity"
+                android:name=".recipe.RecipeEditActivity"
                 android:label="@string/title_activity_recipe_editor"
-                android:parentActivityName=".RecipeListActivity"
+                android:parentActivityName=".recipe.RecipeListActivity"
                 android:windowSoftInputMode="stateHidden">
         </activity>
     </application>

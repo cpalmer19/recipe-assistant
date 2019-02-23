@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/form_padding"
         android:orientation="vertical"
-        tools:context=".IngredientEditActivity">
+        tools:context=".ingred.IngredientEditActivity">
 
     <TextView
             android:layout_width="wrap_content"

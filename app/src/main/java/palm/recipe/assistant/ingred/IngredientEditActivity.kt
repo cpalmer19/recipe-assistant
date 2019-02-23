@@ -1,12 +1,14 @@
-package palm.recipe.assistant
+package palm.recipe.assistant.ingred
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_ingredient_edit.*
-import palm.recipe.assistant.model.Ingredient
-import palm.recipe.assistant.model.db.DatabaseHelper
+import palm.recipe.assistant.R
+import palm.recipe.assistant.base.DatabaseHelper
+import palm.recipe.assistant.base.EXTRA_ID
+import palm.recipe.assistant.base.toast
 
 /**
  * Activity for editing an Ingredient.

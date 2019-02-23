@@ -1,4 +1,4 @@
-package palm.recipe.assistant
+package palm.recipe.assistant.recipe
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import palm.recipe.assistant.model.Recipe
-import palm.recipe.assistant.model.db.DatabaseHelper
+import palm.recipe.assistant.R
+import palm.recipe.assistant.base.DatabaseHelper
 
-class RecipeEditDetailFragment : Fragment() {
+internal class RecipeEditDetailFragment : Fragment() {
     private lateinit var dbHelper: DatabaseHelper
     private var recipeId: Int = 0
 

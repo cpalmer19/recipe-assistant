@@ -1,4 +1,4 @@
-package palm.recipe.assistant
+package palm.recipe.assistant.base
 
 import android.app.Activity
 import android.content.Context
@@ -13,6 +13,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
+import palm.recipe.assistant.R
 import kotlin.reflect.KClass
 
 /*

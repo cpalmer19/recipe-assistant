@@ -1,4 +1,4 @@
-package palm.recipe.assistant
+package palm.recipe.assistant.recipe
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,11 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import palm.recipe.assistant.model.db.DatabaseHelper
+import palm.recipe.assistant.R
+import palm.recipe.assistant.base.DatabaseHelper
+import palm.recipe.assistant.base.EXTRA_ID
+import palm.recipe.assistant.base.createBundle
+import palm.recipe.assistant.base.toast
 
 /**
  * Activity for editing an Recipe.
@@ -99,7 +103,7 @@ class RecipeEditActivity : AppCompatActivity() {
 
     private fun saveRecipe(): Boolean {
         val recipe = tabs.details.createRecipe(recipeID)
-//
+
         val createNew: Boolean = recipeID == 0
 
         val success: Boolean = if (createNew) {

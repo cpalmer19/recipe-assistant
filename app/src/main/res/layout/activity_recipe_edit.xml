@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".RecipeEditActivity">
+        tools:context=".recipe.RecipeEditActivity">
 
     <android.support.design.widget.TabLayout
             android:id="@+id/edit_recipe_tablayout"

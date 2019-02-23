@@ -1,9 +1,9 @@
-package palm.recipe.assistant.model
+package palm.recipe.assistant.ingred
 
 /**
  * The Ingredient model
  */
-class Ingredient(
+data class Ingredient(
     val id: Int,            // database ID (or zero)
     val name: String,       // custom name of the Ingredient
     val unitCost: Double,   // unit cost in dollars

@@ -1,4 +1,4 @@
-package palm.recipe.assistant.model.db
+package palm.recipe.assistant.base
 
 import android.content.ContentValues
 import android.content.Context
@@ -7,9 +7,9 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import palm.recipe.assistant.model.Ingredient
-import palm.recipe.assistant.model.Measure
-import palm.recipe.assistant.model.Recipe
+import palm.recipe.assistant.ingred.Ingredient
+import palm.recipe.assistant.recipe.Measure
+import palm.recipe.assistant.recipe.Recipe
 
 
 /**
@@ -291,10 +291,10 @@ class DatabaseHelper(context: Context)
      * @return a Measure Object
      */
     private fun Cursor.getMeasure() = Measure(
-                getString(COLUMN_NAME),
-                getDouble(COLUMN_MEASURE),
-                getString(COLUMN_UNIT)
-        )
+            getString(COLUMN_NAME),
+            getDouble(COLUMN_MEASURE),
+            getString(COLUMN_UNIT)
+    )
 
     /**
      * Get ContentValues that apply to a particular Measure object

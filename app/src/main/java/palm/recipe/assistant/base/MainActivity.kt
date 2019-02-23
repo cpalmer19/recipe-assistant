@@ -1,8 +1,11 @@
-package palm.recipe.assistant
+package palm.recipe.assistant.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
+import palm.recipe.assistant.R
+import palm.recipe.assistant.ingred.IngredientListActivity
+import palm.recipe.assistant.recipe.RecipeListActivity
 
 /**
  * The main Home activity.

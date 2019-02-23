@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".RecipeEditActivity"
+        tools:context=".recipe.RecipeEditActivity"
         tools:showIn="@layout/activity_recipe_edit">
 
     <android.support.constraint.ConstraintLayout
@@ -43,6 +43,7 @@
             android:id="@+id/edit_recipe_ingredient_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:choiceMode="singleChoice"
             android:listSelector="@color/color_listSelector">
     </ListView>

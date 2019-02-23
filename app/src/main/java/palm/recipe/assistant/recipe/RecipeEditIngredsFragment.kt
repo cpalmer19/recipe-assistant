@@ -1,16 +1,21 @@
-package palm.recipe.assistant
+package palm.recipe.assistant.recipe
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import palm.recipe.assistant.model.Measure
-import palm.recipe.assistant.model.db.DatabaseHelper
+import android.widget.TextView
+import palm.recipe.assistant.R
+import palm.recipe.assistant.base.DatabaseHelper
+import palm.recipe.assistant.base.confirmDelete
+import palm.recipe.assistant.base.onClick
 
-class RecipeEditIngredsFragment : Fragment() {
+internal class RecipeEditIngredsFragment : Fragment() {
     private lateinit var dbHelper: DatabaseHelper
     private var recipeId: Int = 0
 
@@ -86,6 +91,29 @@ class RecipeEditIngredsFragment : Fragment() {
         confirmDelete(msg) {
             _measures.remove(selectedMeasure)
             refreshList()
+        }
+    }
+
+    /**
+     * Adapter for showing a list of Measures in a ListView.
+     */
+    private class MeasureAdapter(context: Context, measures: List<Measure>)
+        : ArrayAdapter<Measure>(context, 0, measures) {
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+            val measure = getItem(position)
+
+            val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_row_measure, parent, false)
+
+            val titleView = view.findViewById<TextView>(R.id.measure_row_name)
+            titleView.text = measure.ingredient
+
+            // details are '$measure $units'
+            val detailView = view.findViewById<TextView>(R.id.measure_row_details)
+            val details = "${measure.measure} ${measure.unit}"
+            detailView.text = details
+
+            return view
         }
     }
 }

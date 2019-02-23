@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/form_padding"
         android:orientation="vertical"
-        tools:context=".RecipeEditActivity"
+        tools:context=".recipe.RecipeEditActivity"
         tools:showIn="@layout/activity_recipe_edit">
 
     <TextView
