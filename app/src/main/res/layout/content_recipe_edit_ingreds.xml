@@ -9,9 +9,10 @@
         tools:context=".recipe.RecipeEditActivity"
         tools:showIn="@layout/activity_recipe_edit">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_padding">
 
         <Button
                 android:id="@+id/edit_recipe_add_ingred"
@@ -37,7 +38,7 @@
                 android:text="@string/delete"
                 app:layout_constraintStart_toEndOf="@id/edit_recipe_edit_ingred"
                 app:layout_constraintEnd_toEndOf="parent"/>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
     <ListView
             android:id="@+id/edit_recipe_ingredient_list"

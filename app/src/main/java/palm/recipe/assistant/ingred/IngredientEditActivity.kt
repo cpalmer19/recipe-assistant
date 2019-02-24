@@ -55,28 +55,22 @@ class IngredientEditActivity : AppCompatActivity() {
                 // Maybe something later?
             }
         }
+    }
 
-        // Set up the save button
-        val saveButton = edit_ingred_save
-        saveButton.setOnClickListener {
-            if (validate()) {
-                val ingred = createIngredient()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_edit, menu)
+        return true
+    }
 
-                if (ingredID == 0) {
-                    if (dbHelper.addIngredient(ingred) != -1) {
-                        toast(getString(R.string.toast_msg_ingred_created, ingred.name))
-                    } else {
-                        toast(getString(R.string.toast_msg_ingred_failed, ingred.name))
-                    }
-                } else {
-                    if (dbHelper.updateIngredient(ingred)) {
-                        toast(getString(R.string.toast_msg_ingred_saved, ingred.name))
-                    } else {
-                        toast(getString(R.string.toast_msg_ingred_failed, ingred.name))
-                    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_editor_save -> {
+                if (validate() && saveIngredient()) {
+                    finish()
                 }
-                finish()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -88,7 +82,32 @@ class IngredientEditActivity : AppCompatActivity() {
     private fun fillFields(ingred: Ingredient) {
         nameField.setText(ingred.name)
         unitCostField.setText(ingred.unitCost.toString())
-        unitField.setSelection(units.indexOf(ingred.unit))
+        unitField.setSelection(dbHelper.unitAbbreviations.indexOf(ingred.unit))
+    }
+
+    private fun saveIngredient(): Boolean {
+        val ingred = createIngredient()
+
+        val createNew: Boolean = ingredID == 0
+
+        val success: Boolean = if (createNew) {
+            ingredID = dbHelper.addIngredient(ingred)
+            ingredID != -1
+        } else {
+            dbHelper.updateIngredient(ingred)
+        }
+
+        if (success) {
+            if (createNew) {
+                toast(getString(R.string.toast_msg_ingred_created, ingred.name))
+            } else {
+                toast(getString(R.string.toast_msg_ingred_saved, ingred.name))
+            }
+        } else {
+            toast(getString(R.string.toast_msg_ingred_failed, ingred.name))
+        }
+
+        return success
     }
 
     /**
@@ -117,7 +136,10 @@ class IngredientEditActivity : AppCompatActivity() {
             hasError = true
         }
 
-        // TODO when creating a new ingredient, check that the name is unique
+        if (!dbHelper.ingredIsUnique(nameField.text.toString(), ingredID)) {
+            nameField.error = getString(R.string.edit_ingred_error_non_unique)
+            hasError = true
+        }
 
         val unitCost = unitCostField.text.toString().toDoubleOrNull()
         if (unitCost == null) {

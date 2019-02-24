@@ -65,12 +65,59 @@ internal class RecipeEditIngredsFragment : Fragment() {
         deleteButton.isEnabled = false
     }
 
-    fun addMeasure() {
-        // TODO how to add/edit measures?
+    private fun addMeasure() {
+        // have the user select an ingredient
+        val ingredients = dbHelper.getAllIngredients().filter {
+            val ingred = it
+            measures.none { it.ingredient == ingred.name }
+        }
+        val adapter = IngredAdapter(context, ingredients)
+
+        context.showDialog {
+            setTitle(R.string.dialog_title_select_ingredient)
+            setAdapter(adapter) { _, which ->
+                val ingredName = adapter.getItem(which).name
+                val newMeasure = Measure(ingredName, 1.0, "c")
+                editMeasure(newMeasure)
+            }
+        }
     }
 
-    fun editSelectedMeasure() {
+    private fun editMeasure(measure: Measure) {
+        context.showDialog {
+            setTitle(getString(R.string.dialog_title_edit_measure, measure.ingredient))
 
+            val dialogView = layoutInflater.inflate(R.layout.dialog_edit_measure, null)
+            val amountText = dialogView.findViewById<EditText>(R.id.edit_measure_amount)
+            val unitSpinner = dialogView.findViewById<Spinner>(R.id.edit_measure_unit)
+            setView(dialogView)
+
+            amountText.setText(measure.measure.toString())
+
+            val units = dbHelper.unitAbbreviations
+            unitSpinner.adapter = ArrayAdapter(context, R.layout.spinner_view_unit, units)
+            unitSpinner.setSelection(units.indexOf(measure.unit))
+
+            setPositiveButton(R.string.ok) { _, _ ->
+                val newMeasure = Measure(
+                        measure.ingredient,
+                        amountText.text.toString().toDoubleOrNull() ?: 1.0,
+                        unitSpinner.selectedItem as String
+                )
+                val index = _measures.indexOfFirst { it.ingredient == measure.ingredient }
+                if (index != -1) {
+                    _measures[index] = newMeasure
+                } else {
+                    _measures += newMeasure
+                }
+                refreshList()
+            }
+            setNegativeButton(R.string.cancel) { _, _ -> }
+        }
+    }
+
+    private fun editSelectedMeasure() {
+        editMeasure(selectedMeasure!!)
     }
 
     private fun deleteSelectedMeasure() {
@@ -80,6 +127,8 @@ internal class RecipeEditIngredsFragment : Fragment() {
             refreshList()
         }
     }
+
+
 
     /**
      * Adapter for showing a list of Measures in a ListView.

@@ -61,11 +61,4 @@
 
     </LinearLayout>
 
-    <Button
-            android:id="@+id/edit_ingred_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_btn_save"/>
-
-
 </android.widget.LinearLayout>

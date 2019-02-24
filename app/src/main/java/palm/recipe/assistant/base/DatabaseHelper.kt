@@ -157,8 +157,6 @@ class DatabaseHelper(context: Context)
      * @param ingredient the Ingredient to add/insert
      */
     fun addIngredient(ingredient: Ingredient): Int {
-        // TODO check that the ingredient name does not already exist
-
         return addEntry(TABLE_INGREDIENTS, ingredient.toContentValues())
     }
 
@@ -210,14 +208,7 @@ class DatabaseHelper(context: Context)
         )
     }
 
-    fun ingredientExists(name: String): Boolean {
-        return query(
-                TABLE_INGREDIENTS,
-                where = "$COLUMN_NAME = ?",
-                whereArgs = arrayOf(name),
-                mapper = { true }
-        ).isNotEmpty()
-    }
+    fun ingredIsUnique(name: String, id: Int) = nameIsUnique(TABLE_INGREDIENTS, name, id)
 
     //----------------------------------------------------------------------------------
     // Recipe Methods
@@ -244,8 +235,6 @@ class DatabaseHelper(context: Context)
     }
 
     fun addRecipe(recipe: Recipe): Int {
-        // TODO check that the recipe name does not already exist
-
         return addEntry(TABLE_RECIPES, recipe.toContentValues())
     }
 
@@ -270,14 +259,7 @@ class DatabaseHelper(context: Context)
         return query(TABLE_RECIPES, orderBy = COLUMN_NAME, mapper = { getRecipe() })
     }
 
-    fun recipeExists(name: String): Boolean {
-        return query(
-                TABLE_RECIPES,
-                where = "$COLUMN_NAME = ?",
-                whereArgs = arrayOf(name),
-                mapper = { true }
-        ).isNotEmpty()
-    }
+    fun recipeIsUnique(name: String, id: Int) = nameIsUnique(TABLE_RECIPES, name, id)
 
     //----------------------------------------------------------------------------------
     // Measure Methods
@@ -332,6 +314,16 @@ class DatabaseHelper(context: Context)
 
     //----------------------------------------------------------------------
     // General database manipulation methods
+
+    private fun nameIsUnique(table: String, name: String, idToIgnore: Int): Boolean {
+        return query(
+                table,
+                columns = arrayOf(COLUMN_ID),
+                where = "$COLUMN_NAME = ? AND $COLUMN_ID != ?",
+                whereArgs = arrayOf(name, idToIgnore.toString()),
+                mapper = { false }
+        ).isEmpty()
+    }
 
     private fun addEntry(table: String, values: ContentValues): Int {
         return writableDatabase.use {

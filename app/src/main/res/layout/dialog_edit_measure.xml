@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/form_padding">
+
+    <EditText
+            android:id="@+id/edit_measure_amount"
+            android:layout_width="@dimen/editText_num_width"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/dialog_hint_measure"/>
+
+    <Spinner
+            android:id="@+id/edit_measure_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

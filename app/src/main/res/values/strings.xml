@@ -28,6 +28,7 @@
     <string name="edit_ingred_per">/</string>
 
     <string name="edit_ingred_error_name">Name must not be blank</string>
+    <string name="edit_ingred_error_non_unique">An ingredient with this name already exists</string>
     <string name="edit_ingred_error_cost">Cost must be a number</string>
     <string name="toast_msg_ingred_saved">Saved ingredient \'%1$s\'</string>
     <string name="toast_msg_ingred_created">Created ingredient \'%1$s\'</string>
@@ -40,8 +41,13 @@
     <string name="edit_recipe_ingredients">Ingredients</string>
 
     <string name="edit_recipe_error_name">Name must not be blank</string>
+    <string name="edit_recipe_error_non_unique">A recipe with this name already exists</string>
     <string name="edit_recipe_error_yield">Yield must be a number</string>
     <string name="toast_msg_recipe_saved">Saved recipe \'%1$s\'</string>
     <string name="toast_msg_recipe_created">Created recipe \'%1$s\'</string>
     <string name="toast_msg_recipe_failed">Could not save recipe \'%1$s\'</string>
+
+    <string name="dialog_title_select_ingredient">Select Ingredient</string>
+    <string name="dialog_title_edit_measure">Measure of %1$s</string>
+    <string name="dialog_hint_measure">Amount</string>
 </resources>

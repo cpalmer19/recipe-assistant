@@ -60,7 +60,10 @@ internal class RecipeEditDetailFragment : Fragment() {
             hasError = true
         }
 
-        // TODO when creating a new recipe, check that the name is unique
+        if (!dbHelper.recipeIsUnique(nameField.text.toString(), recipeId)) {
+            nameField.error = getString(R.string.edit_recipe_error_non_unique)
+            hasError = true
+        }
 
         val yieldVal = yieldField.text.toString().toDoubleOrNull()
         if (yieldVal == null) {

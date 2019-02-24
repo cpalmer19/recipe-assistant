@@ -14,7 +14,6 @@
                 android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -28,7 +27,7 @@
                 android:name=".ingred.IngredientEditActivity"
                 android:label="@string/title_activity_ingredient_editor"
                 android:parentActivityName=".ingred.IngredientListActivity"
-                android:windowSoftInputMode="stateHidden">
+                android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
         <activity
                 android:name=".recipe.RecipeListActivity"
@@ -40,7 +39,7 @@
                 android:name=".recipe.RecipeEditActivity"
                 android:label="@string/title_activity_recipe_editor"
                 android:parentActivityName=".recipe.RecipeListActivity"
-                android:windowSoftInputMode="stateHidden">
+                android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
     </application>
 
