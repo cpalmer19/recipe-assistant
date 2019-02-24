@@ -10,14 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.content_recipe_list.*
 import palm.recipe.assistant.R
 import palm.recipe.assistant.base.*
 
 class RecipeListActivity : AppCompatActivity() {
 
-    private val listView by lazy { main_recipe_list }
+    private val listView by viewId<ListView>(R.id.main_recipe_list)
 
     private val dbHelper = DatabaseHelper(this)
     private var selectedRecipe: Recipe? = null
@@ -59,6 +59,7 @@ class RecipeListActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         refreshList()
+        actionMode?.finish()
     }
 
     /**

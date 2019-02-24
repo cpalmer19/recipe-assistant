@@ -123,11 +123,8 @@ class DatabaseHelper(context: Context)
         put(COLUMN_TYPE, type)
     }
 
-    fun unitAbbreviations(): List<String> {
-        return query(
-                TABLE_UNITS,
-                mapper = { getString(COLUMN_ABBR) }
-        )
+    val unitAbbreviations: List<String> by lazy {
+        query(TABLE_UNITS, mapper = { getString(COLUMN_ABBR) })
     }
 
     //-----------------------------------------------------------------------

@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import palm.recipe.assistant.R
 import palm.recipe.assistant.base.DatabaseHelper
+import palm.recipe.assistant.base.viewId
 
 internal class RecipeEditDetailFragment : Fragment() {
     private lateinit var dbHelper: DatabaseHelper
     private var recipeId: Int = 0
 
-    private lateinit var nameField: EditText
-    private lateinit var yieldField: EditText
-    private lateinit var descriptionField: EditText
+    private val nameField by viewId<EditText>(R.id.edit_recipe_name)
+    private val yieldField by viewId<EditText>(R.id.edit_recipe_yield)
+    private val descriptionField by viewId<EditText>(R.id.edit_recipe_description)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dbHelper = DatabaseHelper(context)
@@ -24,10 +25,6 @@ internal class RecipeEditDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        nameField = view!!.findViewById(R.id.edit_recipe_name)
-        yieldField = view.findViewById(R.id.edit_recipe_yield)
-        descriptionField = view.findViewById(R.id.edit_recipe_description)
-
         if (recipeId != 0) {
             val recipe = dbHelper.getRecipe(recipeId)
             if (recipe != null) {
@@ -36,7 +33,7 @@ internal class RecipeEditDetailFragment : Fragment() {
         }
     }
 
-    fun fillFields(recipe: Recipe) {
+    private fun fillFields(recipe: Recipe) {
         nameField.setText(recipe.name)
         yieldField.setText(recipe.yield.toString())
         descriptionField.setText(recipe.description)

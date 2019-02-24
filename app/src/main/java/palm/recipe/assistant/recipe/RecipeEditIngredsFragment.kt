@@ -6,22 +6,20 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import palm.recipe.assistant.R
-import palm.recipe.assistant.base.DatabaseHelper
-import palm.recipe.assistant.base.confirmDelete
-import palm.recipe.assistant.base.onClick
+import palm.recipe.assistant.base.*
+import palm.recipe.assistant.ingred.IngredAdapter
 
 internal class RecipeEditIngredsFragment : Fragment() {
     private lateinit var dbHelper: DatabaseHelper
     private var recipeId: Int = 0
 
-    private lateinit var editButton: Button
-    private lateinit var deleteButton: Button
-    private lateinit var measureList: ListView
+    private val addButton by viewId<Button>(R.id.edit_recipe_add_ingred)
+    private val editButton by viewId<Button>(R.id.edit_recipe_edit_ingred)
+    private val deleteButton by viewId<Button>(R.id.edit_recipe_delete_ingred)
+    private val measureList by viewId<ListView>(R.id.edit_recipe_ingredient_list)
+
     private val _measures = mutableListOf<Measure>()
     private var selectedMeasure: Measure? = null
 
@@ -40,21 +38,10 @@ internal class RecipeEditIngredsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        view!!.findViewById<Button>(R.id.edit_recipe_add_ingred).apply {
-            onClick(::addMeasure)
-        }
+        addButton.onClick(::addMeasure)
+        editButton.onClick(::editSelectedMeasure)
+        deleteButton.onClick(::deleteSelectedMeasure)
 
-        editButton = view.findViewById<Button>(R.id.edit_recipe_edit_ingred).apply {
-            isEnabled = false
-            onClick(::editSelectedMeasure)
-        }
-
-        deleteButton = view.findViewById<Button>(R.id.edit_recipe_delete_ingred).apply {
-            isEnabled = false
-            onClick(::deleteSelectedMeasure)
-        }
-
-        measureList = view.findViewById(R.id.edit_recipe_ingredient_list)
         if (recipeId != 0) {
             measures = dbHelper.getMeasuresForRecipe(recipeId)
         }
@@ -72,7 +59,7 @@ internal class RecipeEditIngredsFragment : Fragment() {
         refreshList()
     }
 
-    fun refreshList() {
+    private fun refreshList() {
         measureList.adapter = MeasureAdapter(context, _measures)
         editButton.isEnabled = false
         deleteButton.isEnabled = false
@@ -86,9 +73,9 @@ internal class RecipeEditIngredsFragment : Fragment() {
 
     }
 
-    fun deleteSelectedMeasure() {
+    private fun deleteSelectedMeasure() {
         val msg = getString(R.string.confirm_delete_measure_question, selectedMeasure?.ingredient)
-        confirmDelete(msg) {
+        context.confirmDelete(msg) {
             _measures.remove(selectedMeasure)
             refreshList()
         }

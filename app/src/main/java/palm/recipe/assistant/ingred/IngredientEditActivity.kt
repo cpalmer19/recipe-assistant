@@ -3,12 +3,16 @@ package palm.recipe.assistant.ingred
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.activity_ingredient_edit.*
+import android.widget.EditText
+import android.widget.Spinner
 import palm.recipe.assistant.R
 import palm.recipe.assistant.base.DatabaseHelper
 import palm.recipe.assistant.base.EXTRA_ID
 import palm.recipe.assistant.base.toast
+import palm.recipe.assistant.base.viewId
 
 /**
  * Activity for editing an Ingredient.
@@ -18,11 +22,9 @@ class IngredientEditActivity : AppCompatActivity() {
     private val dbHelper = DatabaseHelper(this)
     private var ingredID: Int = 0
 
-    private val nameField by lazy { edit_ingred_name }
-    private val unitCostField by lazy { edit_ingred_unitCost }
-    private val unitField by lazy { edit_ingred_unit }
-
-    private val units by lazy { dbHelper.unitAbbreviations() }
+    private val nameField by viewId<EditText>(R.id.edit_ingred_name)
+    private val unitCostField by viewId<EditText>(R.id.edit_ingred_unitCost)
+    private val unitField by viewId<Spinner>(R.id.edit_ingred_unit)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class IngredientEditActivity : AppCompatActivity() {
         // for backwards navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        unitField.adapter = ArrayAdapter(this, R.layout.spinner_view_unit, units)
+        unitField.adapter = ArrayAdapter(this, R.layout.spinner_view_unit, dbHelper.unitAbbreviations)
 
         /*
         This activity can be used for creating or editing an Ingredient.

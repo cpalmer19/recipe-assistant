@@ -11,10 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import palm.recipe.assistant.R
-import palm.recipe.assistant.base.DatabaseHelper
-import palm.recipe.assistant.base.EXTRA_ID
-import palm.recipe.assistant.base.createBundle
-import palm.recipe.assistant.base.toast
+import palm.recipe.assistant.base.*
 
 /**
  * Activity for editing an Recipe.
@@ -25,8 +22,8 @@ class RecipeEditActivity : AppCompatActivity() {
     private var recipeID: Int = 0
 
     private lateinit var tabs: TabAdapter
-    private val viewPager by lazy { findViewById<ViewPager>(R.id.edit_recipe_pager) }
-    private val tabLayout by lazy { findViewById<TabLayout>(R.id.edit_recipe_tablayout) }
+    private val viewPager by viewId<ViewPager>(R.id.edit_recipe_pager)
+    private val tabLayout by viewId<TabLayout>(R.id.edit_recipe_tablayout)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

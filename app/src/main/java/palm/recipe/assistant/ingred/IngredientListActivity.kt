@@ -1,17 +1,11 @@
 package palm.recipe.assistant.ingred
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import kotlinx.android.synthetic.main.content_ingredient_list.*
+import android.widget.ListView
 import palm.recipe.assistant.R
 import palm.recipe.assistant.base.*
 
@@ -19,8 +13,7 @@ import palm.recipe.assistant.base.*
  * An Activity for showing the current list of Ingredients.
  */
 class IngredientListActivity : AppCompatActivity() {
-
-    private val listView by lazy { main_ingred_list }
+    private val listView by viewId<ListView>(R.id.main_ingred_list)
 
     private val dbHelper = DatabaseHelper(this)
     private var selectedIngredient: Ingredient? = null
@@ -114,29 +107,6 @@ class IngredientListActivity : AppCompatActivity() {
             dbHelper.deleteIngredient(selectedIngredient!!)
             actionMode?.finish()
             refreshList()
-        }
-    }
-
-    /**
-     * Adapter for showing a list of Ingredients in a ListView.
-     */
-    private class IngredAdapter(context: Context, ingreds: List<Ingredient>)
-        : ArrayAdapter<Ingredient>(context, 0, ingreds) {
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val ingred = getItem(position)
-
-            val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_row_ingredient, parent, false)
-
-            val titleView = view.findViewById<TextView>(R.id.ingred_row_name)
-            titleView.text = ingred.name
-
-            // details are '$UNIT_COST / UNIT'
-            val detailView = view.findViewById<TextView>(R.id.measure_row_details)
-            val details = "\$${ingred.unitCost} / ${ingred.unit}"
-            detailView.text = details
-
-            return view
         }
     }
 }

@@ -18,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/buttonBarButtonStyle"
-                android:text="@string/edit_recipe_btn_add_ingred"
+                android:text="@string/add"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_recipe_edit_ingred"/>
         <Button
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/buttonBarButtonStyle"
-                android:text="@string/menu_edit"
+                android:text="@string/edit"
                 app:layout_constraintStart_toEndOf="@id/edit_recipe_add_ingred"
                 app:layout_constraintEnd_toStartOf="@+id/edit_recipe_delete_ingred"/>
         <Button
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/buttonBarButtonStyle"
-                android:text="@string/menu_delete"
+                android:text="@string/delete"
                 app:layout_constraintStart_toEndOf="@id/edit_recipe_edit_ingred"
                 app:layout_constraintEnd_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>

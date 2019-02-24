@@ -2,7 +2,6 @@ package palm.recipe.assistant.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
 import palm.recipe.assistant.R
 import palm.recipe.assistant.ingred.IngredientListActivity
 import palm.recipe.assistant.recipe.RecipeListActivity
@@ -18,14 +17,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Button for viewing the ingredient list
-        val ingredButton: Button = findViewById(R.id.btn_ingredients)
-        ingredButton.setOnClickListener {
+        buttonOnClick(R.id.btn_ingredients) {
             launchActivity(IngredientListActivity::class)
         }
 
         // Button for viewing the recipe list
-        val recipeButton: Button = findViewById(R.id.btn_recipes)
-        recipeButton.setOnClickListener {
+        buttonOnClick(R.id.btn_recipes) {
             launchActivity(RecipeListActivity::class)
         }
     }
