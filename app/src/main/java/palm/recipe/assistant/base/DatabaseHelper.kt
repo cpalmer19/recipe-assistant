@@ -20,7 +20,7 @@ class DatabaseHelper(context: Context)
 
     companion object {
         const val DATABASE_NAME = "recipe_manager.db"
-        const val DATABASE_VERSION = 2
+        const val DATABASE_VERSION = 3
 
         const val TABLE_INGREDIENTS = "ingredients"
         const val TABLE_RECIPES = "recipes"
@@ -47,7 +47,7 @@ class DatabaseHelper(context: Context)
         val unitSql = "CREATE TABLE $TABLE_UNITS(" +
                 "$COLUMN_ID INTEGER PRIMARY KEY," +
                 "$COLUMN_ABBR TEXT UNIQUE," +
-                "$COLUMN_TYPE TEXT CHECK($COLUMN_TYPE IN ('W', 'V')));"
+                "$COLUMN_TYPE TEXT CHECK($COLUMN_TYPE IN ('W', 'V', 'N')));"
         db.execSQL(unitSql)
         initUnits(db)
 
@@ -79,10 +79,12 @@ class DatabaseHelper(context: Context)
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         val tempTableIngred = "_${TABLE_INGREDIENTS}_old"
         val tempTableRecipe = "_${TABLE_RECIPES}_old"
+        val tempTableMeasure = "_${TABLE_MEASURES}_old"
 
         db.run {
             execSQL("ALTER TABLE $TABLE_INGREDIENTS RENAME TO $tempTableIngred")
             execSQL("ALTER TABLE $TABLE_RECIPES RENAME TO $tempTableRecipe")
+            execSQL("ALTER TABLE $TABLE_MEASURES RENAME TO $tempTableMeasure")
 
             execSQL("DROP TABLE IF EXISTS $TABLE_UNITS")
             execSQL("DROP TABLE IF EXISTS $TABLE_INGREDIENTS")
@@ -95,6 +97,7 @@ class DatabaseHelper(context: Context)
         db.run {
             execSQL("INSERT INTO $TABLE_INGREDIENTS SELECT * FROM $tempTableIngred")
             execSQL("INSERT INTO $TABLE_RECIPES SELECT * FROM $tempTableRecipe")
+            execSQL("INSERT INTO $TABLE_MEASURES SELECT * FROM $tempTableMeasure")
             execSQL("DROP TABLE $tempTableIngred")
             execSQL("DROP TABLE $tempTableRecipe")
         }
@@ -112,6 +115,7 @@ class DatabaseHelper(context: Context)
         initUnit(db, "tbsp", "V")
         initUnit(db, "oz", "V")
         initUnit(db, "c", "V")
+        initUnit(db, "item", "N")
     }
 
     private fun initUnit(db: SQLiteDatabase, abbr: String, type: String) {
